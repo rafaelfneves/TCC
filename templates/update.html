@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{#============================ [HEAD] ============================#}
+{% block head %}
+<title>TCC Green Line</title>
+{% endblock %}
+{#============================ [BODY] ============================#}
+{% block body %}
+<div class="content">
+    <h1>Update Task</h1>
+
+    <div class="form">
+        <form action="/update/{{task.id}}" method="POST">
+            <input type="text" name="content" id="content" value="{{task.content}}">
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
+{#================================================================#}
