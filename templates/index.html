@@ -7,30 +7,53 @@
 {#============================ [BODY] ============================#}
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">Task Master</h1>
-    {% if tasks|length < 1%}
-    <h4 style="text-align: center">Nenhuma Tarefa, Crie uma.</h4>
-    {% else %}
+    <h1>Gerenciamento de Catadores</h1>
 
+    <!-- Formulário para criar um novo catador -->
+    <h2>Adicionar Novo Catador</h2>
+    <form action="/catadores" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
+        <br>
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" name="sobrenome">
+        <br>
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" name="data_nascimento">
+        <br>
+        <!-- Adicione campos para outras propriedades do catador aqui -->
+        <input type="submit" value="Adicionar Catador">
+    </form>
+
+    
+    <!-- Tabela para listar catadores -->
+    <h2>Lista de Catadores</h2>
     <table>
         <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Data de Nascimento</th>
+            <!-- Adicione colunas para outras propriedades do catador aqui -->
+            <th>Ações</th>
         </tr>
-        {% for task in tasks %}
+        <!-- Preencha a tabela com os dados dos catadores usando um loop no lado do servidor -->
+        {% for catador in catadores %}
         <tr>
-            <td>{{ task.content }}</td>
-            <td>{{ task.date_created.date() }}</td>
+            <td>{{ catador.id }}</td>
+            <td>{{ catador.nome }}</td>
+            <td>{{ catador.sobrenome }}</td>
+            <td>{{ catador.data_nascimento }}</td>
+            <!-- Adicione células para outras propriedades do catador aqui -->
             <td>
-                <a href="/delete/{{task.id}}">Delete</a>
-                <br>
-                <a href="/update/{{task.id}}">Update</a>
+                <a href="/catadores/{{ catador.id }}">Editar</a>
+                <a href="/catadores/{{ catador.id }}" class="delete">Excluir</a>
             </td>
         </tr>
         {% endfor %}
     </table>
-    {% endif %}
+
+    
     <div class="form">
         <form action="/" method="POST">
             <input type="text" name="content" id="content">

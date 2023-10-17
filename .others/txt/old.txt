@@ -1,6 +1,18 @@
 
+https://github.com/jakerieger/FlaskIntroduction/blob/master/app.py
+
+
 import psycopg2
 
+
+
+db_config = {
+    'dbname': 'green_line',
+    'user': 'postgres',
+    'password': '123456',
+    'host': 'localhost',
+    'port': '5432',
+}
 # =============================================[CATADOR]=============================================
 
 # Rota para inserir um novo catador
