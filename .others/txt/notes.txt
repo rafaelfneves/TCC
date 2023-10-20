@@ -6,10 +6,7 @@ python -m pip install virtualenv
 pip3 install virtualenv
 virtualenv env
 
-env/Scripts/activate
-
 pip3 install flask flask-sqlalchemy
-
 pip3 install pg8000
 pip3 install psycopg2
 pip3 install psycopg2-binary

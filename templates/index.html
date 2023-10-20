@@ -7,61 +7,23 @@
 {#============================ [BODY] ============================#}
 {% block body %}
 <div class="content">
-    <h1>Gerenciamento de Catadores</h1>
 
-    <!-- Formulário para criar um novo catador -->
-    <h2>Adicionar Novo Catador</h2>
-    <form action="/catadores" method="POST">
+    <h1>Inserir Catador</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
         <label for="nome">Nome:</label>
-        <input type="text" name="nome" required>
+        {{ form.nome.label }}
+        {{ form.nome }}
         <br>
         <label for="sobrenome">Sobrenome:</label>
-        <input type="text" name="sobrenome">
+        {{ form.sobrenome.label }}
+        {{ form.sobrenome }}
         <br>
-        <label for="data_nascimento">Data de Nascimento:</label>
-        <input type="date" name="data_nascimento">
+        <!-- Adicione os campos restantes -->
         <br>
-        <!-- Adicione campos para outras propriedades do catador aqui -->
-        <input type="submit" value="Adicionar Catador">
+        <button type="submit">Inserir Catador</button>
     </form>
-
     
-    <!-- Tabela para listar catadores -->
-    <h2>Lista de Catadores</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Sobrenome</th>
-            <th>Data de Nascimento</th>
-            <!-- Adicione colunas para outras propriedades do catador aqui -->
-            <th>Ações</th>
-        </tr>
-        <!-- Preencha a tabela com os dados dos catadores usando um loop no lado do servidor -->
-        {% for catador in catadores %}
-        <tr>
-            <td>{{ catador.id }}</td>
-            <td>{{ catador.nome }}</td>
-            <td>{{ catador.sobrenome }}</td>
-            <td>{{ catador.data_nascimento }}</td>
-            <!-- Adicione células para outras propriedades do catador aqui -->
-            <td>
-                <a href="/catadores/{{ catador.id }}">Editar</a>
-                <a href="/catadores/{{ catador.id }}" class="delete">Excluir</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    
-    <div class="form">
-        <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
-        </form>
-    </div>
-</div>
-
 
 {% endblock %}
 {#================================================================#}

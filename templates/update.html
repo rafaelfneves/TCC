@@ -6,16 +6,41 @@
 {% endblock %}
 {#============================ [BODY] ============================#}
 {% block body %}
-<div class="content">
-    <h1>Update Task</h1>
+<header>
+    <h1>Atualizar Informações do Catador</h1>
+    <nav>
+        <ul>
+            <li><a href="/">Página Inicial</a></li>
+            <li><a href="/catadores">Catadores</a></li>
+            <li><a href="/conquistas">Conquistas</a></li>
+            <li><a href="/voucher">Voucher</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <div class="form">
-        <form action="/update/{{task.id}}" method="POST">
-            <input type="text" name="content" id="content" value="{{task.content}}">
-            <input type="submit" value="Update">
-        </form>
-    </div>
-</div>
+<main>
+    <h2>Informações do Catador</h2>
+    <form action="/atualizar_catador" method="POST">
+        <input type="hidden" name="catador_id" value="1"> <!-- Substitua pelo ID do catador que está sendo atualizado -->
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="Nome Atual do Catador"><br>
+
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" id="sobrenome" name="sobrenome" value="Sobrenome Atual do Catador"><br>
+
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" value="Data de Nascimento Atual do Catador"><br>
+
+        <!-- Adicione outros campos do catador aqui (endereco, cidade, estado, telefone, email, etc.) -->
+
+        <input type="submit" value="Atualizar">
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2023 Projeto Green Line</p>
+</footer>
 
 
 {% endblock %}

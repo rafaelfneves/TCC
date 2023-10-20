@@ -1,19 +1,9 @@
-from wsgiref.validate import validator
-from flask import Flask, request, jsonify, render_template, url_for, redirect
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from datetime import datetime
-from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, DecimalField
-from wtforms.validators import DataRequired, Optional
-import hashlib # para criar o codigo do voucher 
-import re #para validar formato de e-mail
-
 # ====================== [CONEXAO] ======================
+
 app = Flask(__name__)
 
 db_config = {
-    'dbname': 'greenline',
+    'dbname': 'green_line',
     'user': 'postgres',
     'password': '123456',
     'host': 'localhost',
@@ -27,10 +17,11 @@ db_url = f'postgresql://{db_config["user"]}:{db_config["password"]}@{db_config["
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 db = SQLAlchemy(app)
 
-#Rota para a página inicial
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Teste a conexão
+if db.engine.connect():
+    print("Conexão bem-sucedida!")
+else:
+    print("Falha na conexão.")
     
 # ====================== [TABELAS] ======================
 class Catadores(db.Model):
@@ -84,47 +75,81 @@ class Vouchers(db.Model):
     fk_catadores = db.Column(db.Integer, db.ForeignKey('catadores.id'))
     codigo = db.Column(db.String(256), nullable=False)
 
-#Forms
-class CatadorForm(FlaskForm):
-    nome = StringField('Nome', validators=[validator.DataRequired()])
-    sobrenome = StringField('Sobrenome')
-    data_nascimento = DateField('Data de Nascimento')
-    endereco = StringField('Endereço')
-    cidade = StringField('Cidade')
-    estado = StringField('Estado')
-    telefone = StringField('Telefone')
-    email = StringField('Email')
-    experiencia_anos = DecimalField('Experiência em Anos', validators=[validators.Optional()])
-    area_atuacao = StringField('Área de Atuação')
-    capacidade_carga_kg = DecimalField('Capacidade de Carga (kg)', validators=[validators.Optional()])
-    
 # ====================== [ROTAS] ======================
 # =-=-= [CRUD Catadores] =-=-=
 @app.route('/catadores', methods=['POST'])
 def create_catador():
     data = request.json
     new_catador = Catadores(**data)
-    
-    try:
-        db.session.add(new_catador)
+    db.session.add(new_catador)
+    db.session.commit()
+    return jsonify({'message': 'Catador criado com sucesso'}), 201
+
+@app.route('/catadores', methods=['GET'])
+def get_catadores():
+    catadores = Catadores.query.all()
+    result = [catador.__dict__ for catador in catadores]
+    return jsonify(result)
+
+@app.route('/catadores/<int:id>', methods=['GET'])
+def get_catador(id):
+    catador = Catadores.query.get(id)
+    if catador:
+        return jsonify(catador.__dict__)
+    return jsonify({'message': 'Catador não encontrado'}), 404
+
+@app.route('/catadores/<int:id>', methods=['PUT'])
+def update_catador(id):
+    data = request.json
+    catador = Catadores.query.get(id)
+    if catador:
+        for key, value in data.items():
+            setattr(catador, key, value)
         db.session.commit()
-        return jsonify({'message': 'Catador criado com sucesso'}), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
-    
-#=====================================================
-db_engine = create_engine(db_url)
-try:
-    db_engine.connect()
-    print("Conexão com o PostgreSQL bem-sucedida.")
-except Exception as e:
-    print("Erro ao conectar ao PostgreSQL:", str(e))
-    
+        return jsonify({'message': 'Catador atualizado com sucesso'})
+    return jsonify({'message': 'Catador não encontrado'}), 404
+
+@app.route('/catadores/<int:id>', methods=['DELETE'])
+def delete_catador(id):
+    catador = Catadores.query.get(id)
+    if catador:
+        db.session.delete(catador)
+        db.session.commit()
+        return jsonify({'message': 'Catador excluído com sucesso'})
+    return jsonify({'message': 'Catador não encontrado'}), 404
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+    db.create_all()
     app.run(debug=True)
 
 
+    ===============================================================================
+
+    from flask import Flask, request, jsonify, render_template, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import hashlib # para criar o codigo do voucher 
+import re #para validar formato de e-mail
+
+app = Flask(__name__)
+
+db_config = {
+    'dbname': 'green_line',
+    'user': 'postgres',
+    'password': '123456',
+    'host': 'localhost',
+    'port': '5432',
+}
 
 
+# Configure o SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password:password@localhost/students'
+
+db=SQLAlchemy(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
