@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from datetime import datetime
 from flask_wtf import FlaskForm
+import jinja2
 from wtforms import StringField, DateField, DecimalField
 from wtforms.validators import DataRequired, Optional
 import hashlib # para criar o codigo do voucher 
@@ -27,10 +28,14 @@ db_url = f'postgresql://{db_config["user"]}:{db_config["password"]}@{db_config["
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 db = SQLAlchemy(app)
 
+#CHAVE SECRETA
+app.config['SECRET_KEY'] = '123456'
+
 #Rota para a página inicial
 @app.route('/')
 def index():
-    return render_template('index.html')
+    form = CatadorForm()  # Instancie o formulário aqui
+    return render_template('index.html', form=form)  # Passe o formulário para o contexto do modelo
     
 # ====================== [TABELAS] ======================
 class Catadores(db.Model):
@@ -104,7 +109,7 @@ class CatadorForm(FlaskForm):
 def create_catador():
     data = request.json
     new_catador = Catadores(**data)
-    
+    form = CatadorForm()
     try:
         db.session.add(new_catador)
         db.session.commit()

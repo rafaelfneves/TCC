@@ -11,6 +11,9 @@ pip3 install pg8000
 pip3 install psycopg2
 pip3 install psycopg2-binary
 
+---->Jinja
+python -m pip install Jinja2
+
 -------------> INSTALANDO BANCO DE DADOS
 activate
 python

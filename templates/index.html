@@ -9,21 +9,46 @@
 <div class="content">
 
     <h1>Inserir Catador</h1>
+
     <form method="POST">
-        {{ form.csrf_token }}
-        <label for="nome">Nome:</label>
-        {{ form.nome.label }}
-        {{ form.nome }}
-        <br>
-        <label for="sobrenome">Sobrenome:</label>
-        {{ form.sobrenome.label }}
-        {{ form.sobrenome }}
-        <br>
-        <!-- Adicione os campos restantes -->
-        <br>
-        <button type="submit">Inserir Catador</button>
+        {{ form.hidden_tag() }}
+        
+        <label for="{{ form.nome.id }}">Nome:</label>
+        {{ form.nome(class="form-control") }}
+        
+        <label for="{{ form.sobrenome.id }}">Sobrenome:</label>
+        {{ form.sobrenome(class="form-control") }}
+        
+        <label for="{{ form.data_nascimento.id }}">Data de Nascimento:</label>
+        {{ form.data_nascimento(class="form-control") }}
+        
+        <label for="{{ form.endereco.id }}">Endereço:</label>
+        {{ form.endereco(class="form-control") }}
+        
+        <label for="{{ form.cidade.id }}">Cidade:</label>
+        {{ form.cidade(class="form-control") }}
+        
+        <label for="{{ form.estado.id }}">Estado:</label>
+        {{ form.estado(class="form-control") }}
+        
+        <label for="{{ form.telefone.id }}">Telefone:</label>
+        {{ form.telefone(class="form-control") }}
+        
+        <label for="{{ form.email.id }}">Email:</label>
+        {{ form.email(class="form-control") }}
+        
+        <label for="{{ form.experiencia_anos.id }}">Experiência em Anos:</label>
+        {{ form.experiencia_anos(class="form-control") }}
+        
+        <label for="{{ form.area_atuacao.id }}">Área de Atuação:</label>
+        {{ form.area_atuacao(class="form-control") }}
+        
+        <label for="{{ form.capacidade_carga_kg.id }}">Capacidade de Carga (kg):</label>
+        {{ form.capacidade_carga_kg(class="form-control") }}
+        
+        <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     
-
+    
 {% endblock %}
 {#================================================================#}
