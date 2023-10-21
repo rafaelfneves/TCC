@@ -51,6 +51,7 @@ class Catadores(db.Model):
     experiencia_anos = db.Column(db.Integer)
     area_atuacao = db.Column(db.String(100))
     capacidade_carga_kg = db.Column(db.Numeric(10, 2))
+    veiculos = db.relationship('Veiculos', back_populates='catador')
 
 class Conquistas(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -81,6 +82,7 @@ class Veiculos(db.Model):
     placa = db.Column(db.String(10))
     fk_catadores = db.Column(db.Integer, db.ForeignKey('catadores.id'))
     catador = db.relationship('Catadores', back_populates='veiculos')
+    
 
 class Vouchers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
