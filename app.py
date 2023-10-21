@@ -86,7 +86,7 @@ class Vouchers(db.Model):
 
 #Forms
 class CatadorForm(FlaskForm):
-    nome = StringField('Nome', validators=[validator.DataRequired()])
+    nome = StringField('Nome', validators=[DataRequired()])
     sobrenome = StringField('Sobrenome')
     data_nascimento = DateField('Data de Nascimento')
     endereco = StringField('Endereço')
@@ -94,9 +94,9 @@ class CatadorForm(FlaskForm):
     estado = StringField('Estado')
     telefone = StringField('Telefone')
     email = StringField('Email')
-    experiencia_anos = DecimalField('Experiência em Anos', validators=[validators.Optional()])
+    experiencia_anos = DecimalField('Experiência em Anos', validators=[Optional()])
     area_atuacao = StringField('Área de Atuação')
-    capacidade_carga_kg = DecimalField('Capacidade de Carga (kg)', validators=[validators.Optional()])
+    capacidade_carga_kg = DecimalField('Capacidade de Carga (kg)', validators=[Optional()])
     
 # ====================== [ROTAS] ======================
 # =-=-= [CRUD Catadores] =-=-=
