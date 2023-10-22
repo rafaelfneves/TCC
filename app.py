@@ -83,7 +83,6 @@ class Veiculos(db.Model):
     fk_catadores = db.Column(db.Integer, db.ForeignKey('catadores.id'))
     catador = db.relationship('Catadores', back_populates='veiculos')
     
-
 class Vouchers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fk_conquistas = db.Column(db.Integer, db.ForeignKey('conquistas.id'))
