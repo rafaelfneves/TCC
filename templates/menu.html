@@ -7,16 +7,16 @@
 {#============================ [BODY] ============================#}
 {% block body %}
 <div class="content">
-    <h1>Posto de Reciclagem</h1>
+    <h1 style="font-size: 30pt;">Posto de Reciclagem</h1>
     <p class="custom-container">Endereço do posto</p>
     <hr class="vertical-line">
     
     <h1>Menu</h1>
-    <div class="row">
+    <div class="row main-menu">
         <div class="col-md-4 custom-container">
-            <a href="{{ url_for('catadores.catadores') }}">Catadores</a>
-            <a href="veiculos.html">Veículos</a>
+            <a href="{{ url_for('catadores.catadores') }}" class="main-menu">Catadores</a>
             <a href="materiais.html">Materiais</a>
+            <a href="veiculos.html" >Veículos</a>
         </div>
     
         <div class="col-md-4 custom-container">
@@ -27,6 +27,5 @@
     </div>
 </div>
 {% endblock %}
-
 
 {#================================================================#}

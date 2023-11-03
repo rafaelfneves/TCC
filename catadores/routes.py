@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for, flash
 from wtforms import StringField, DateField, DecimalField
 from wtforms.validators import DataRequired, Optional
 from flask_wtf import FlaskForm
@@ -47,15 +47,22 @@ def listar_catadores():
         # Otherwise, render the template
         return render_template('listar_catadores.html', catadores=catadores, deleted=deleted)
     
+@catadores_bp.route('/atualizar/<int:id>', methods=['GET', 'POST'])
+def atualizar_catadores(id):
+    catador = Catadores.query.get(id)
+    form = CatadorUpdateForm(obj=catador)
 
-@catadores_bp.route('/atualizar/<int:id>', methods=['PUT'])
-def atualizar_catador(id):
-    # Lógica para atualizar um catador pelo ID
-    return f"Atualizar o catador com ID {id}"
+    if request.method == 'POST' and form.validate_on_submit():
+        form.populate_obj(catador)  # Atualize o objeto Catador com os dados do formulário
+        db.session.commit()
+        flash('Catador atualizado com sucesso', 'success')
+        return redirect(url_for('catadores.listar_catadores'))
+
+    return render_template('atualizar_catadores.html', catador=catador, form=form)
 
 # DELETAR
-@catadores_bp.route('/listar/delete/<int:id>', methods=['DELETE','GET'])
-def deletar_catador(id):
+@catadores_bp.route('/delete/<int:id>', methods=['DELETE','GET'])
+def deletar_catadores(id):
     catador = Catadores.query.get(id)
 
     if catador:
@@ -81,4 +88,16 @@ class CatadorForm(FlaskForm):
     experiencia_anos = DecimalField('Experiência em Anos', validators=[Optional()])
     area_atuacao = StringField('Área de Atuação')
     capacidade_carga_kg = DecimalField('Capacidade de Carga (kg)', validators=[Optional()])
-   
+
+class CatadorUpdateForm(FlaskForm):
+    nome = StringField('Nome', validators=[DataRequired()])
+    sobrenome = StringField('Sobrenome')
+    data_nascimento = DateField('Data de Nascimento')
+    endereco = StringField('Endereço')
+    cidade = StringField('Cidade')
+    estado = StringField('Estado')
+    telefone = StringField('Telefone')
+    email = StringField('Email')
+    experiencia_anos = DecimalField('Experiência em Anos', validators=[Optional()])
+    area_atuacao = StringField('Área de Atuação')
+    capacidade_carga_kg = DecimalField('Capacidade de Carga (kg)', validators=[Optional()])

@@ -33,8 +33,8 @@
                 <td>{{ catador.nome }}</td>
                 <td>{{ catador.sobrenome }}</td>
                 <td>
-                    <a href="" class="btn update-btn">Atualizar</a>
-                    <a href="{{ url_for('catadores.deletar_catador', id=catador.id) }}" class="btn delete-btn">Deletar</a>
+                    <a href="{{ url_for('catadores.atualizar_catadores', id=catador.id) }}" class="btn update-btn">Atualizar</a>
+                    <a href="{{ url_for('catadores.deletar_catadores', id=catador.id) }}" class="btn delete-btn">Deletar</a>
                 </td>
             </tr>
             {% endfor %}
