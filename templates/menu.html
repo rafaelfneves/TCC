@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{#============================ [HEAD] ============================#}
+{% block head %}
+<title>TCC Green Line</title>
+{% endblock %}
+{#============================ [BODY] ============================#}
+{% block body %}
+<div class="content">
+    <h1>Posto de Reciclagem</h1>
+    <p class="custom-container">Endereço do posto</p>
+    <hr class="vertical-line">
+    
+    <h1>Menu</h1>
+    <div class="row">
+        <div class="col-md-4 custom-container">
+            <a href="{{ url_for('catadores.catadores') }}">Catadores</a>
+            <a href="veiculos.html">Veículos</a>
+            <a href="materiais.html">Materiais</a>
+        </div>
+    
+        <div class="col-md-4 custom-container">
+            <a href="conquistas.html">Conquistas</a>
+            <a href="vouchers.html">Vouchers</a>
+            <a href="empresas.html">Empresas</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{#================================================================#}
