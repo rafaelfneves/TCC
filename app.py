@@ -12,10 +12,12 @@ import re #para validar formato de e-mail
 # Modularização
 from models import db
 from catadores.routes import catadores_bp
+from materiais.routes import materiais_bp
 
 # ====================== [CONEXAO] ======================
 app = Flask(__name__)
 app.register_blueprint(catadores_bp, url_prefix='/catadores')
+app.register_blueprint(materiais_bp, url_prefix='/materiais')
 cors = CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5000/catadores/listar"}})
 
 db_config = {
