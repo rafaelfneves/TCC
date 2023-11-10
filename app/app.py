@@ -1,5 +1,5 @@
 # ====================== [APP.PY] ======================
-from __init__ import CORS, db, db_url, Migrate, collectors_bp, materials_bp, Flask, render_template, os
+from .__init__ import CORS, db, db_url, Migrate, collectors_bp, materials_bp, Flask, render_template, os
 
 # -> Initialize the Flask app
 app = Flask(__name__, template_folder='views/templates')

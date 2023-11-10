@@ -1,5 +1,5 @@
-from __init__ import *
-from models import db
+from .__init__ import Flask, CORS, create_engine, ForeignKey, Column, String, Integer, CHAR, Date, Float, Text, relationship
+from .models import db
 
 class Material(db.Model):
     __tablename__ = 'materials'

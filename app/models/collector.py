@@ -1,4 +1,4 @@
-from __init__ import Flask, CORS, create_engine, ForeignKey, Column, String, Integer, CHAR, Date, Float, Text
+from .__init__ import Flask, CORS, create_engine, ForeignKey, Column, String, Integer, CHAR, Date, Float, Text
 from .models import db
 
 class Collector(db.Model):
