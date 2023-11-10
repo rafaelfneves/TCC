@@ -1,11 +1,13 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for, flash
-from wtforms import StringField, DateField, DecimalField, TextAreaField, IntegerField, HiddenField
-from wtforms.validators import DataRequired, Length, NumberRange
-from flask_wtf import FlaskForm
-from models import Materiais, db
+from __init__ import *
 
 materiais_bp = Blueprint("materiais", __name__)
 materiais_bp.template_folder = 'templates'
+
+class materialsController:
+    @staticmethod
+    def get_all_materials():
+        materials = Materials.query.all()
+        return jsonify([material.serialize() for material in materials])
 
 # ====================== [ROUTES] ======================
 @materiais_bp.route('/')

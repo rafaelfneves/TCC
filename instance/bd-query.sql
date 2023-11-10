@@ -1,70 +1,97 @@
-/* ============ [CATADORES] ============ */
-
-CREATE TABLE CATADORES (
+/* ============ [ROLES] ============ */
+CREATE TABLE Roles (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    sobrenome VARCHAR(100),
-    data_nascimento DATE,
-    endereco VARCHAR(255),
-    cidade VARCHAR(100),
-    estado VARCHAR(50),
-    telefone VARCHAR(20),
-    email VARCHAR(100),
-    experiencia_anos INT,
-    area_atuacao VARCHAR(100),
-    capacidade_carga_kg NUMERIC(10, 2)
+    nome VARCHAR(255) NOT NULL
 );
 
-/* ============ [CONQUISTAS] ============ */
-
-CREATE TABLE CONQUISTAS (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    requerimento VARCHAR(255) NOT NULL,
-    pontos INT NOT NULL
+/* ============ [CATEGORIES] ============ */
+CREATE TABLE Categories (
+    id serial PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
-/* ============ [EMPRESAS] ============ */
-
-CREATE TABLE EMPRESAS (
-    cnpj VARCHAR(14) PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    endereco VARCHAR(255),
-    email VARCHAR(100),
-    telefone VARCHAR(20)
+/* ============ [USERS] ============ */
+CREATE TABLE Users (
+    cpf_login VARCHAR(11) PRIMARY KEY,
+    password_hash VARCHAR(255) NOT NULL,
+    role INT NOT NULL CHECK (role IN (0, 1))
 );
 
-/* ============ [MATERIAIS SUSTENTÁVEIS] ============ */
-
-CREATE TABLE MATERIAIS (
+/* ============ [BRANDS] ============ */
+CREATE TABLE Brands (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    descricao TEXT,
-    categoria VARCHAR(50),
-    peso_medio_gramas INT,
-    valor_venda DECIMAL(10, 2)
+    brand VARCHAR(255) NOT NULL
 );
-/* ============[VEICULOS] ============ */
 
-CREATE TABLE VEICULOS (
+/* ============ [MATERIALS] ============ */
+CREATE TABLE Materials (
     id SERIAL PRIMARY KEY,
-    marca VARCHAR(100),
-    modelo VARCHAR(100),
-    ano INT,
-    placa VARCHAR(10),
-    fk_catadores INT,
-    FOREIGN KEY (fk_catadores) REFERENCES CATADORES(id)
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    fk_categories INT REFERENCES Categories(id)
+);
+
+/* ============ [INVENTORIES] ============ */
+CREATE TABLE Inventories (
+    id SERIAL PRIMARY KEY,
+    material_name VARCHAR(255) NOT NULL,
+    weight_grams FLOAT NOT NULL,
+    fk_materials INT REFERENCES Materials(id)
+);
+
+/* ============ [COLLECTORS] ============ */
+CREATE TABLE Collectors (
+    cpf VARCHAR(11) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    birth_date DATE,
+    phone VARCHAR(20),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    years_of_experience INT,
+    working_area VARCHAR(255)
+);
+
+/* ============ [VEHICLES] ============ */
+CREATE TABLE Vehicles (
+    id SERIAL PRIMARY KEY,
+    model VARCHAR(255) NOT NULL,
+    year INT,
+    plate VARCHAR(20),
+    fk_collector VARCHAR(11) REFERENCES Collectors(cpf),
+    capacity_kg FLOAT
+);
+
+/* ============ [ADDRESSES] ============ */
+CREATE TABLE Addresses (
+    id SERIAL PRIMARY KEY,
+    entity_id INT NOT NULL,
+    entity_type VARCHAR(255) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    number VARCHAR(20),
+    city VARCHAR(255) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    zip_code VARCHAR(20) NOT NULL
 );
 
 /* ============ [VOUCHERS] ============ */
+CREATE TABLE Vouchers (
+    cod_voucher SERIAL PRIMARY KEY,
+    fk_achievements INT REFERENCES Achievements(id),
+    fk_companies VARCHAR(14) REFERENCES Companies(cnpj)
+);
 
-CREATE TABLE VOUCHERS (
+/* ============ [ACHIEVEMENTS] ============ */
+CREATE TABLE Achievements (
     id SERIAL PRIMARY KEY,
-    fk_conquistas INT,
-    fk_empresas VARCHAR(14),
-    fk_catadores INT,
-    codigo VARCHAR(256) NOT NULL,
-    FOREIGN KEY (fk_conquistas) REFERENCES CONQUISTAS(id),
-    FOREIGN KEY (fk_empresas) REFERENCES EMPRESAS(cnpj),
-    FOREIGN KEY (fk_catadores) REFERENCES CATADORES(id)
+    name VARCHAR(255) NOT NULL,
+    requirement VARCHAR(255),
+    points INT NOT NULL,
+    fk_collector VARCHAR(11) REFERENCES Collectors(cpf)
+);
+
+/* ============ [COMPANIES] ============ */
+CREATE TABLE Companies (
+    cnpj VARCHAR(14) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(20)
 );

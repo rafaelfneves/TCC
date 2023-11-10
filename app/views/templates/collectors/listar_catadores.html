@@ -20,21 +20,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>CPF</th>
                 <th>Nome</th>
                 <th>Sobrenome</th>
                 <th>Opções</th>
             </tr>
         </thead>
         <tbody>
-            {% for catador in catadores %}
+            {% for collector in collectors %}
             <tr>
-                <td>{{ catador.id }}</td>
-                <td>{{ catador.nome }}</td>
-                <td>{{ catador.sobrenome }}</td>
+                <td>{{ collector.cpf }}</td>
+                <td>{{ collector.nome }}</td>
+                <td>{{ collector.sobrenome }}</td>
                 <td>
-                    <a href="{{ url_for('catadores.atualizar_catadores', id=catador.id) }}" class="btn update-btn">Atualizar</a>
-                    <a href="{{ url_for('catadores.deletar_catadores', id=catador.id) }}" class="btn delete-btn">Deletar</a>
+                    <a href="{{ url_for('collectors.atualizar_collectors', cpf=collector.cpf) }}" class="btn update-btn">Atualizar</a>
+                    <a href="{{ url_for('collectors.deletar_collectors', cpf=collector.cpf) }}" class="btn delete-btn">Deletar</a>
                 </td>
             </tr>
             {% endfor %}
