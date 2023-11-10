@@ -1,27 +1,19 @@
 # ====================== [APP.PY] ======================
-from __init__ import *
+from __init__ import CORS, db, db_url, Migrate, collectors_bp, materials_bp, Flask, render_template, os
 
 # -> Initialize the Flask app
 app = Flask(__name__)
-# ====================== [CONECTION] ======================
-
-cors = CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5000/collectors/select"}})
-
-# Initialize the db instance with the app
-db.init_app(app)
-
-migrate = Migrate(app, db)
-
-# Registra a Blueprint com o aplicativo
-app.register_blueprint(collectors_bp, url_prefix='/collectors')
-app.register_blueprint(materials_bp, url_prefix='/materials')
-app.register_blueprint(collectors_bp)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# CHAVE SECRETA
 app.config['SECRET_KEY'] = os.urandom(24)
+
+cors = CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5000/collectors/select"}})
+db.init_app(app)
+migrate = Migrate(app, db)
+
+# ======================= [BLUEPRINT] =======================
+app.register_blueprint(collectors_bp, url_prefix='/collectors')
+app.register_blueprint(materials_bp, url_prefix='/materials')
 # ====================== [MENU] ======================
 @app.route('/')
 def menu():

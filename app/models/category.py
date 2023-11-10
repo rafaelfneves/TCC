@@ -1,4 +1,5 @@
 from __init__ import *
+from models import db
 
 db = SQLAlchemy()
 

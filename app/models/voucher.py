@@ -1,4 +1,5 @@
 from __init__ import *
+from models import db
 
 class Voucher(db.Model):
     __tablename__ = 'vouchers'

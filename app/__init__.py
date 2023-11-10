@@ -1,3 +1,8 @@
+"""
+This module (__init__.py) serves as the initialization file for the Flask application.
+It includes necessary imports for libraries, blueprints, and other components.
+"""
+
 # ====================== [LIB] ======================
 from flask import Flask, Blueprint, request, jsonify, render_template, url_for, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -15,14 +20,12 @@ from datetime import datetime
 
 from wtforms import StringField, DateField, DecimalField, TextAreaField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Optional, Length, NumberRange
+# ======================= [MODELS] =======================
+from models.models import db, db_url
 # ====================== [OTHER LIB] ======================
 import os # para gerar numeros aleatórios
 import hashlib # para criar o codigo do voucher 
 import re #para validar formato de e-mail
-
-# ====================== [MVC IMPORT] ======================
-from models import *
-from controllers import *
 # ====================== [BLUEPRINT] ======================
 # -> Collectors
 collectors_bp = Blueprint('collectors', __name__, template_folder='templates/collectors')

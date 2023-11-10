@@ -1,4 +1,5 @@
 from __init__ import *
+from models import db
 
 class Inventory(db.Model):
     __tablename__ = 'inventories'

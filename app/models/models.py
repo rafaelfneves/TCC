@@ -1,5 +1,5 @@
-# ====================== [MODELS] ======================
-from __init__ import *
+# ====================== [SQLALCHEMY] ======================
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
