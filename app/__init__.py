@@ -21,6 +21,7 @@ from datetime import datetime
 from wtforms import StringField, DateField, DecimalField, TextAreaField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Optional, Length, NumberRange
 # ======================= [MODELS] =======================
+from models.collector import Collector 
 from models.models import db, db_url
 # ====================== [OTHER LIB] ======================
 import os # para gerar numeros aleatórios

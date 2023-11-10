@@ -43,6 +43,7 @@ CREATE TABLE Inventories (
 CREATE TABLE Collectors (
     cpf VARCHAR(11) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
     birth_date DATE,
     phone VARCHAR(20),
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -67,6 +68,7 @@ CREATE TABLE Addresses (
     entity_type VARCHAR(255) NOT NULL,
     street VARCHAR(255) NOT NULL,
     number VARCHAR(20),
+    complement VARCHAR(255),
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
     zip_code VARCHAR(20) NOT NULL

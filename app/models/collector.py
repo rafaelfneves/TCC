@@ -1,5 +1,5 @@
-from __init__ import *
-from models import db
+from __init__ import Flask, CORS, create_engine, ForeignKey, Column, String, Integer, CHAR, Date, Float, Text
+from .models import db
 
 class Collector(db.Model):
     __tablename__ = 'collectors'
@@ -12,3 +12,5 @@ class Collector(db.Model):
     email = Column(String, unique=True, nullable=False)
     years_of_experience = Column(Integer)
     working_area = Column(String)
+
+

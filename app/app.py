@@ -22,7 +22,7 @@ def menu():
 if __name__ == '__main__':
     with app.app_context():
         # Import your models here and create tables
-        from models import Collectors
+        from models.collector import Collector
         db.create_all()
         print("Conexão com o PostgreSQL bem-sucedida.")
 
