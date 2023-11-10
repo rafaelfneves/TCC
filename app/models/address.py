@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 class Address(db.Model):
     __tablename__ = 'addresses'
@@ -8,6 +8,7 @@ class Address(db.Model):
     entity_type = Column(String, nullable=False)
     street = Column(String, nullable=False)
     number = Column(String)
+    complement = Column(String)
     city = Column(String, nullable=False)
     state = Column(String, nullable=False)
     zip_code = Column(String, nullable=False)

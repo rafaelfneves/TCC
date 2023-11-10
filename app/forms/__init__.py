@@ -1,6 +1,6 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, IntegerField, TextAreaField
-from wtforms.validators import DataRequired, Email
+from app import *
 
-from forms import collector_forms
-from forms import materials_forms
+# ====================== [FORMS] ======================
+
+from forms.collectors_forms import CollectorForm, UpdateCollectorForm
+from forms.materials_forms import MaterialForm, MaterialUpdateForm

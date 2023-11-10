@@ -8,7 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # Models
-from .collector import Collector
+from collector import Collector
+from material import Material
 
 
 

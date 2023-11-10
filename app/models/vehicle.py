@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 class Vehicle(db.Model):
     __tablename__ = 'vehicles'

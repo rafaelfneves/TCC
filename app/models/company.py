@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 class Company(db.Model):
     __tablename__ = 'companies'

@@ -1,34 +1,33 @@
-from __init__ import *
+from app import *
 
-# ====================== [ROUTES] ======================
+# ====================== [MENU] ======================
 @collectors_bp.route('/')
 def collectors():
     return render_template('menu_collectors.html')
 
-
-# CADASTRAR
+# ====================== [CREATE] ======================
 @collectors_bp.route('/cadastrar', methods=['GET', 'POST'])
-def cadastrar_collectors():
-    form = CatadorForm()  # Create an instance of the form
+def create_collectors():
+    form = CollectorsForms()  # Create an instance of the form
 
     if request.method == 'POST':
         data = request.json
-        new_catador = Collectors(**data)
+        new_collector = Collectors(**data)
 
         try:
-            db.session.add(new_catador)
+            db.session.add(new_collector)
             db.session.commit()
             return jsonify({'message': 'Catador criado com sucesso'}), 201
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-    return render_template('register_collectors.html', form=form)
+    return render_template('create_collectors.html', form=form)
     
-# SELECT
-@collectors_bp.route('/listar', methods=['GET'])
-def listar_collectors():
+# ====================== [SELECT] ======================
+@collectors_bp.route('/select', methods=['GET'])
+def select_collectors():
     collectors = Collectors.query.all()
-    result = [{'id': collector.id, 'nome': collector.nome, 'sobrenome': collector.sobrenome} for collector in catadores]
+    result = [{'cpf': collector.cpf, 'nome': collector.name, 'sobrenome': collector.surname} for collector in collectors]
     
     # Verificar se há um parâmetro 'deleted' na URL
     deleted = request.args.get('deleted')
@@ -41,9 +40,10 @@ def listar_collectors():
         # Otherwise, render the template
         return render_template('list_collectors.html', collectors=collectors, deleted=deleted)
     
-@collectors_bp.route('/atualizar/<int:id>', methods=['GET', 'POST'])
-def atualizar_collectors(id):
-    collector = Collectors.query.get(id)
+# ====================== [UPDATE] ======================
+@collectors_bp.route('/update/<string:cpf>', methods=['GET', 'POST'])
+def update_collectors(cpf):
+    collector = Collectors.query.get(cpf)
     form = CollectorUpdateForm(obj=collector)
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -54,10 +54,10 @@ def atualizar_collectors(id):
 
     return render_template('atualizar_catadores.html', catador=collector, form=form)
 
-# DELETAR
-@collectors_bp.route('/delete/<int:id>', methods=['DELETE','GET'])
-def deletar_catadores(id):
-    collector = Collectors.query.get(id)
+# ====================== [DELETE] ======================
+@collectors_bp.route('/delete/<string:cpf>', methods=['DELETE','GET'])
+def deletar_collector(cpf):
+    collector = Collectors.query.get(cpf)
 
     if collector:
         # Remova o catador do banco de dados

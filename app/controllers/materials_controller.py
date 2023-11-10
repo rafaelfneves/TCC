@@ -1,27 +1,24 @@
 from __init__ import *
 
-materiais_bp = Blueprint("materiais", __name__)
-materiais_bp.template_folder = 'templates'
-
 class materialsController:
     @staticmethod
     def get_all_materials():
         materials = Materials.query.all()
         return jsonify([material.serialize() for material in materials])
 
-# ====================== [ROUTES] ======================
-@materiais_bp.route('/')
-def materiais():
-    return render_template('menu_materiais.html')
+# ====================== [MENU] ======================
+@materials_bp.route('/')
+def materials():
+    return render_template('menu_materials.html')
 
-# CADASTRAR
-@materiais_bp.route('/cadastrar', methods=['GET', 'POST'])
-def cadastrar_materiais():
-    form = MateriaisForm()  # Create an instance of the form
+# ====================== [CREATE] ======================
+@materials_bp.route('/create', methods=['GET', 'POST'])
+def create_materials():
+    form = MaterialsForm()  # Create an instance of the form
 
     if request.method == 'POST':
         data = request.json
-        new_material = Materiais(**data)
+        new_material = Materials(**data)
 
         try:
             db.session.add(new_material)
@@ -30,13 +27,13 @@ def cadastrar_materiais():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-    return render_template('cadastrar_materiais.html', form=form)
+    return render_template('create_materials.html', form=form)
     
-# LISTAR
-@materiais_bp.route('/listar', methods=['GET'])
-def listar_materiais():
-    materiais = Materiais.query.all()
-    result = [{'id': material.id, 'nome': material.nome, 'categoria': material.categoria, 'valor_venda': material.valor_venda} for material in materiais]
+# ====================== [SELECT] ======================
+@materials_bp.route('/select', methods=['GET'])
+def select_materials():
+    materials = Materials.query.all()
+    result = [{'id': material.id, 'nome': material.nome, 'categoria': material.categoria, 'valor_venda': material.valor_venda} for material in materials]
     
     # Verificar se há um parâmetro 'deleted' na URL
     deleted = request.args.get('deleted')
@@ -47,48 +44,34 @@ def listar_materiais():
         return jsonify(result)
     else:
         # Otherwise, render the template
-        return render_template('listar_materiais.html', materiais=materiais, deleted=deleted) 
-    
-@materiais_bp.route('/atualizar/<int:id>', methods=['GET', 'POST'])
-def atualizar_materiais(id):
-    material = Materiais.query.get(id)
-    form = MateriaisUpdateForm(obj=material)
+        return render_template('select_materials.html', materials=materials, deleted=deleted) 
+   
+# ====================== [UPDATE] ====================== 
+@materials_bp.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_materials(id):
+    material = Materials.query.get(id)
+    form = MaterialsUpdateForm(obj=material)
 
     if request.method == 'POST' and form.validate_on_submit():
         form.populate_obj(material)  # Atualize o objeto Material com os dados do formulário
         db.session.commit()
         flash('Material atualizado com sucesso', 'success')
-        return redirect(url_for('materiais.listar_materiais'))
+        return redirect(url_for('materials.select_material'))
 
-    return render_template('atualizar_materiais.html', material=material, form=form)
+    return render_template('update_materials.html', material=material, form=form)
 
-# DELETAR
-@materiais_bp.route('/delete/<int:id>', methods=['DELETE','GET'])
-def deletar_materiais(id):
-    material = Materiais.query.get(id)
+# ====================== [DELETE] ======================
+@materials_bp.route('/delete/<int:id>', methods=['DELETE','GET'])
+def deletar_materials(id):
+    material = Materials.query.get(id)
 
     if material:
         # Remova o Material do banco de dados
         db.session.delete(material)
         db.session.commit()
         # Redirecione de volta para a página de listagem com uma mensagem de confirmação
-        return redirect(url_for('materiais.listar_materiais', deleted=True))
+        return redirect(url_for('material.select_materials', deleted=True))
     else:
         # Se o Material não for encontrado, retorne uma mensagem de erro
         return jsonify({'error':'Material não encontrado'}), 404
     
-# ====================== [FORMS] ======================
-class MateriaisForm(FlaskForm):
-    nome = StringField('Nome', validators=[DataRequired(), Length(max=100)])
-    descricao = TextAreaField('Descrição')
-    categoria = StringField('Categoria', validators=[Length(max=50)])
-    peso_medio_gramas = IntegerField('Peso Médio (g)', validators=[NumberRange(min=0)])
-    valor_venda = DecimalField('Valor de Venda', validators=[NumberRange(min=0)], places=2)
-
-class MateriaisUpdateForm(FlaskForm):
-    id = HiddenField('ID')
-    nome = StringField('Nome', validators=[DataRequired(), Length(max=100)])
-    descricao = TextAreaField('Descrição')
-    categoria = StringField('Categoria', validators=[Length(max=50)])
-    peso_medio_gramas = IntegerField('Peso Médio (g)', validators=[NumberRange(min=0)])
-    valor_venda = DecimalField('Valor de Venda', validators=[NumberRange(min=0)], places=2)

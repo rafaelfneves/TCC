@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 class User(db.Model):
     __tablename__ = 'users'

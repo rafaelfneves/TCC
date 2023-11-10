@@ -1,8 +1,9 @@
-from . import *
+from __init__ import *
 
-class CollectorForm(FlaskForm):
+class CollectorsForm(FlaskForm):
     cpf = StringField('CPF', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
+    surname = StringField('Surname', validators=[DataRequired()])
     birth_date = DateField('Birth Date')
     phone = StringField('Phone')
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -10,11 +11,15 @@ class CollectorForm(FlaskForm):
     working_area = StringField('Working Area')
     
 
-class UpdateCollectorForm(FlaskForm):
+class CollectorsUpdateForm(FlaskForm):
     cpf = StringField('CPF', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
+    surname = StringField('Surname', validators=[DataRequired()])    
     birth_date = DateField('Birth Date')
     phone = StringField('Phone')
     email = StringField('Email', validators=[DataRequired(), Email()])
     years_of_experience = IntegerField('Years of Experience')
     working_area = StringField('Working Area')
+    
+    # Inclua o formulário de endereço no formulário do catador
+    address = AddressForm()

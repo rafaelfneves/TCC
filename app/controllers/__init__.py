@@ -1,12 +1,19 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for, flash
-from wtforms import StringField, DateField, DecimalField, TextAreaField, IntegerField, HiddenField
-from wtforms.validators import DataRequired, Length, NumberRange
-from flask_wtf import FlaskForm
+from app import *
+from forms import *
 
-from models import Materiais, db
+# ======== [MODELS] ========
+from models.__init__ import Materials, db
 
-from forms import collector
+# ======== [FORMS] ========
+from forms.collectors_forms import CollectorForm, CollectorsUpdateForm
+from forms.collectors_forms import CollectorForm, CollectorsUpdateForm
 
-# Blueprints
+# ======== [Blueprints] ========
+
+# -> Collectors
 collectors_bp = Blueprint("collectors", __name__)
 collectors_bp.template_folder = 'templates'
+
+# -> Materials
+materials_bp = Blueprint("materials", __name__)
+materials_bp.template_folder = 'templates'

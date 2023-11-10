@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 class Inventory(db.Model):
     __tablename__ = 'inventories'

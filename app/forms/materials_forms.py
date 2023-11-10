@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 class MaterialsForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
