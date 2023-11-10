@@ -2,11 +2,11 @@ from __init__ import *
 
 # ====================== [MENU] ======================
 @collectors_bp.route('/')
-def collectors():
-    return render_template('menu_collectors.html')
+def menu_collectors():
+    return render_template('collectors/menu_collectors.html')
 
 # ====================== [CREATE] ======================
-@collectors_bp.route('/cadastrar', methods=['GET', 'POST'])
+@collectors_bp.route('/create', methods=['GET', 'POST'])
 def create_collectors():
     form = CollectorsForm()  # Create an instance of the form
 
@@ -21,7 +21,7 @@ def create_collectors():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-    return render_template('create_collectors.html', form=form)
+    return render_template('collectors/create_collectors.html', form=form)
     
 # ====================== [SELECT] ======================
 @collectors_bp.route('/select', methods=['GET'])
@@ -38,7 +38,7 @@ def select_collectors():
         return jsonify(result)
     else:
         # Otherwise, render the template
-        return render_template('list_collectors.html', collectors=collectors, deleted=deleted)
+        return render_template('collectors/list_collectors.html', collectors=collectors, deleted=deleted)
     
 # ====================== [UPDATE] ======================
 @collectors_bp.route('/update/<string:cpf>', methods=['GET', 'POST'])
@@ -52,7 +52,7 @@ def update_collectors(cpf):
         flash('Catador atualizado com sucesso', 'success')
         return redirect(url_for('catadores.listar_catadores'))
 
-    return render_template('atualizar_catadores.html', catador=collector, form=form)
+    return render_template('collectors/atualizar_catadores.html', catador=collector, form=form)
 
 # ====================== [DELETE] ======================
 @collectors_bp.route('/delete/<string:cpf>', methods=['DELETE','GET'])

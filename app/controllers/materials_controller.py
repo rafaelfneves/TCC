@@ -9,7 +9,7 @@ class materialsController:
 # ====================== [MENU] ======================
 @materials_bp.route('/')
 def materials():
-    return render_template('menu_materials.html')
+    return render_template('materials/menu_materials.html')
 
 # ====================== [CREATE] ======================
 @materials_bp.route('/create', methods=['GET', 'POST'])
@@ -27,7 +27,7 @@ def create_materials():
         except Exception as e:
             return jsonify({'error': str(e)}), 400
 
-    return render_template('create_materials.html', form=form)
+    return render_template('materials/create_materials.html', form=form)
     
 # ====================== [SELECT] ======================
 @materials_bp.route('/select', methods=['GET'])
@@ -44,7 +44,7 @@ def select_materials():
         return jsonify(result)
     else:
         # Otherwise, render the template
-        return render_template('select_materials.html', materials=materials, deleted=deleted) 
+        return render_template('materials/select_materials.html', materials=materials, deleted=deleted) 
    
 # ====================== [UPDATE] ====================== 
 @materials_bp.route('/update/<int:id>', methods=['GET', 'POST'])
@@ -70,7 +70,7 @@ def deletar_materials(id):
         db.session.delete(material)
         db.session.commit()
         # Redirecione de volta para a página de listagem com uma mensagem de confirmação
-        return redirect(url_for('material.select_materials', deleted=True))
+        return redirect(url_for('materials/material.select_materials', deleted=True))
     else:
         # Se o Material não for encontrado, retorne uma mensagem de erro
         return jsonify({'error':'Material não encontrado'}), 404

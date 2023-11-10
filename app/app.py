@@ -2,7 +2,7 @@
 from __init__ import CORS, db, db_url, Migrate, collectors_bp, materials_bp, Flask, render_template, os
 
 # -> Initialize the Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder='views/templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.urandom(24)
