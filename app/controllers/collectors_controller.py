@@ -1,4 +1,4 @@
-from app import *
+from __init__ import *
 
 # ====================== [MENU] ======================
 @collectors_bp.route('/')
@@ -8,11 +8,11 @@ def collectors():
 # ====================== [CREATE] ======================
 @collectors_bp.route('/cadastrar', methods=['GET', 'POST'])
 def create_collectors():
-    form = CollectorsForms()  # Create an instance of the form
+    form = CollectorsForm()  # Create an instance of the form
 
     if request.method == 'POST':
         data = request.json
-        new_collector = Collectors(**data)
+        new_collector = Collector(**data)
 
         try:
             db.session.add(new_collector)
@@ -26,7 +26,7 @@ def create_collectors():
 # ====================== [SELECT] ======================
 @collectors_bp.route('/select', methods=['GET'])
 def select_collectors():
-    collectors = Collectors.query.all()
+    collectors = Collector.query.all()
     result = [{'cpf': collector.cpf, 'nome': collector.name, 'sobrenome': collector.surname} for collector in collectors]
     
     # Verificar se há um parâmetro 'deleted' na URL
@@ -43,8 +43,8 @@ def select_collectors():
 # ====================== [UPDATE] ======================
 @collectors_bp.route('/update/<string:cpf>', methods=['GET', 'POST'])
 def update_collectors(cpf):
-    collector = Collectors.query.get(cpf)
-    form = CollectorUpdateForm(obj=collector)
+    collector = Collector.query.get(cpf)
+    form = CollectorsUpdateForm(obj=collector)
 
     if request.method == 'POST' and form.validate_on_submit():
         form.populate_obj(collector)  # Atualize o objeto Catador com os dados do formulário
@@ -57,7 +57,7 @@ def update_collectors(cpf):
 # ====================== [DELETE] ======================
 @collectors_bp.route('/delete/<string:cpf>', methods=['DELETE','GET'])
 def deletar_collector(cpf):
-    collector = Collectors.query.get(cpf)
+    collector = Collector.query.get(cpf)
 
     if collector:
         # Remova o catador do banco de dados

@@ -20,6 +20,3 @@ class CollectorsUpdateForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     years_of_experience = IntegerField('Years of Experience')
     working_area = StringField('Working Area')
-    
-    # Inclua o formulário de endereço no formulário do catador
-    address = AddressForm()

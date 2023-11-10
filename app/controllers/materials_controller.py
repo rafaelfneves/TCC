@@ -3,7 +3,7 @@ from __init__ import *
 class materialsController:
     @staticmethod
     def get_all_materials():
-        materials = Materials.query.all()
+        materials = Material.query.all()
         return jsonify([material.serialize() for material in materials])
 
 # ====================== [MENU] ======================
@@ -18,7 +18,7 @@ def create_materials():
 
     if request.method == 'POST':
         data = request.json
-        new_material = Materials(**data)
+        new_material = Material(**data)
 
         try:
             db.session.add(new_material)
@@ -32,7 +32,7 @@ def create_materials():
 # ====================== [SELECT] ======================
 @materials_bp.route('/select', methods=['GET'])
 def select_materials():
-    materials = Materials.query.all()
+    materials = Material.query.all()
     result = [{'id': material.id, 'nome': material.nome, 'categoria': material.categoria, 'valor_venda': material.valor_venda} for material in materials]
     
     # Verificar se há um parâmetro 'deleted' na URL
@@ -63,7 +63,7 @@ def update_materials(id):
 # ====================== [DELETE] ======================
 @materials_bp.route('/delete/<int:id>', methods=['DELETE','GET'])
 def deletar_materials(id):
-    material = Materials.query.get(id)
+    material = Material.query.get(id)
 
     if material:
         # Remova o Material do banco de dados
