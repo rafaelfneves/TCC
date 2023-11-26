@@ -1,0 +1,23 @@
+{#============================ [HEAD] ============================#}
+{% extends 'base.html' %}
+
+
+{% block head %}
+<title>TCC Eco-Mundo: Index</title>
+{% endblock %}
+{#============================ [BODY] ============================#}
+{% block body %}
+ 
+  <div class="hero_area">
+    {% include 'main/header.html' %} 
+    {% include 'main/slider.html' %} 
+  </div>
+  {% include 'main/welcome.html' %} 
+  {% include 'main/service.html' %} 
+  {% include 'main/rewards.html' %} 
+  {% include 'main/why.html' %}
+  {% include 'main/client.html' %} 
+  {% include 'main/contact.html' %} 
+  {% include 'main/footer.html' %} 
+  
+{% endblock %}

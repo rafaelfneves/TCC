@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{#============================ [HEAD] ============================#}
+{% block head %}
+<title>Cadastrar Materiais</title>
+{% endblock %}
+{#============================ [BODY] ============================#}
+{% block body %}
+<div class="content">
+    <a class="back-button" href="{{ url_for('materiais.materiais') }}">Voltar</a>
+
+    <h1>Cadastrar Material</h1>
+
+    <form method="POST" action="{{ url_for('materiais.cadastrar_materiais') }}">
+        {{ form.hidden_tag() }}
+
+        {{ form.nome.label }}
+        {{ form.nome(size=50) }}
+        <br>
+
+        {{ form.descricao.label }}
+        {{ form.descricao(rows=4, cols=50) }}
+        <br>
+
+        {{ form.categoria.label }}
+        {{ form.categoria(size=50) }}
+        <br>
+
+        {{ form.peso_medio_gramas.label }}
+        {{ form.peso_medio_gramas }}
+        <br>
+
+        <label for="valor_venda">Valor de Venda (KG):</label>
+        {{ form.valor_venda }}
+        <br><br>
+        <input type="submit" class="btn btn-primary custom-button" value="Cadastrar">
+    </form>
+</div>
+
+{% endblock %}
+
+
+{#================================================================#}

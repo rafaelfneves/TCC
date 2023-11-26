@@ -1,0 +1,25 @@
+<script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap.js"></script>
+	
+<!-- Script de rolagem suave -->
+<script>
+  $(document).ready(function () {
+      // Adiciona rolagem suave a todos os links dentro da barra de navegação
+      $(".navbar-nav a").on('click', function (event) {
+          if (this.hash !== "") {
+              event.preventDefault();
+
+              // Armazena o hash
+              var hash = this.hash;
+
+              // Anima a rolagem
+              $('html, body').animate({
+                  scrollTop: $(hash).offset().top
+              }, 800, function () {
+                  // Adiciona o hash à URL após a rolagem
+                  window.location.hash = hash;
+              });
+          }
+      });
+  });
+</script>
