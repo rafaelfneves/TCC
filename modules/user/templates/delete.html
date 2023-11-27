@@ -1,0 +1,10 @@
+<form method="POST">
+
+    {% csrf_token %}
+  
+    Are you sure you want to delete user {{ data.name }}?
+  
+    <input type="submit" value="Yes" />
+    <a href="/">Cancel </a>
+  
+  </form>
