@@ -1,4 +1,5 @@
 from django.db import models
+from modules.address.models import AddressModel
 
 
 # Create your models here.
@@ -10,7 +11,7 @@ class UserModel(models.Model):
     birth_date = models.DateField()
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
-    fk_address = models.ForeignKey("Address", on_delete=models.CASCADE)
+    fk_address = models.ForeignKey(AddressModel, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f"{self.name} {self.surname}"

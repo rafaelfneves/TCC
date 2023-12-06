@@ -1,0 +1,127 @@
+<!-- Importando o formulário Django -->
+{% load static %}
+
+<!-- Seção de Cadastro -->
+<section class="signup_section layout_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    
+                    <div class="card-header">
+                        <h1>Cadastro de Usuário</h1>
+                    </div>
+                    
+                    <div class="card-body">
+
+                    <!-- Formulário de Cadastro -->
+                    <form method="post" action="{% url 'register' %}" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+
+                        <!-- Nome -->
+                        <div class="form-group form">
+                            <label for="{{ user_form.name.id_for_label }}">Nome:</label><br>
+                            {{ user_form.name }}<br>
+                        </div>
+
+                        <!-- Sobrenome -->
+                        <div class="form-group">
+                            <label for="{{ user_form.surname.id_for_label }}">Sobrenome:</label><br>
+                            {{ user_form.surname }}
+                        </div>
+
+                        <!-- CPF -->
+                        <div class="form-group">
+                            <label for="{{ user_form.cpf.id_for_label }}">CPF:</label><br>
+                            {{ user_form.cpf }}
+                        </div>
+
+                        <!-- Data de Nascimento -->
+                        <div class="form-group">
+                            <label for="{{ user_form.birth_date.id_for_label }}">Data de Nascimento:</label><br>
+                            {{ user_form.birth_date }}
+                        </div>
+
+                        <!-- Telefone -->
+                        <div class="form-group">
+                            <label for="{{ user_form.phone.id_for_label }}">Telefone:</label><br>
+                            {{ user_form.phone }}
+                        </div>
+
+                        <!--Email e Senha-->
+                        <hr>
+                        <h2>E-mail e Senha</h2>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="{{ user_form.email.id_for_label }}">Email:</label><br>
+                            {{ user_form.email }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ user_form.password1.id_for_label }}">Senha:</label>
+                            {{ user_form.password1 }}
+                        </div>
+
+                        <br>
+                        <hr>
+
+                        <h2>Endereço</h2>
+
+                        <!-- Rua -->
+                        <div class="form-group">
+                            <label for="{{ address_form.street.id_for_label }}">Rua:</label><br>
+                            {{ address_form.street }}
+                        </div>
+
+                        <!-- Número -->
+                        <div class="form-group">
+                            <label for="{{ address_form.number.id_for_label }}">Número:</label><br>
+                            {{ address_form.number }}
+                        </div>
+                    
+                        <!-- Complemento -->
+                        <div class="form-group">
+                            <label for="{{ address_form.complement.id_for_label }}">Complemento:</label><br>
+                            {{ address_form.complement }}
+                        </div>
+
+                        <!-- Cidade -->
+                        <div class="form-group">
+                            <label for="{{ address_form.city.id_for_label }}">Cidade:</label><br>
+                            {{ address_form.city }}
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="form-group">
+                            <label for="{{ address_form.state.id_for_label }}">Estado:</label><br>
+                            {{ address_form.state }}
+                        </div>
+
+                        <!-- CEP -->
+                        <div class="form-group">
+                            <label for="{{ address_form.zip_code.id_for_label }}">Código Postal:</label><br>
+                            {{ address_form.zip_code }}
+                        </div>
+
+                        <!-- Função/Role -->
+                        <hr>
+                        <div class="form-group">
+                            <label for="{{ user_form.role.id_for_label }}">Função/Role:</label>
+                            {{ user_form.role }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </form>
+                    <!-- Fim do Formulário de Cadastro -->
+
+                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Fim da Seção de Cadastro -->
+

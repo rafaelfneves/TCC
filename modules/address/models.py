@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Address(models.Model):
+class AddressModel(models.Model):
     street = models.CharField(max_length=50, null=False)
     number = models.IntegerField(null=False)
     complement = models.CharField(max_length=20, null=True)

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
-from .models import Address
+from modules.address.models import AddressModel
 
 
 def index(request):
-    addresses = Address.objects.all()
+    addresses = AddressModel.objects.all()
     return render(request, "index.html", {"addresses": addresses})
 
 
@@ -17,7 +17,7 @@ def create(request):
     state = request.POST["state"]
     zip = request.POST["zip"]
 
-    record = Address(
+    record = AddressModel(
         street=street,
         number=number,
         complement=complement,
@@ -42,9 +42,9 @@ def update(request, record_id):
     state = request.POST["state"]
     zip = request.POST["zip"]
 
-    record = Address.objects.get(id=record_id)
+    record = AddressModel.objects.get(id=record_id)
 
-    Address(
+    AddressModel(
         street=street,
         number=number,
         complement=complement,
@@ -60,7 +60,7 @@ def update(request, record_id):
 
 @require_http_methods(["DELETE"])
 def delete(request, record_id):
-    record = Address.objects.get(id=record_id)
+    record = AddressModel.objects.get(id=record_id)
 
     record.delete()
 
