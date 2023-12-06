@@ -1,0 +1,64 @@
+<!-- Importando o formulário Django -->
+{% load static %}
+
+<!-- Seção de Cadastro -->
+<section class="signup_section layout_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    
+                    <div class="card-header">
+                        <h1>Voucher</h1>
+                    </div>
+                    
+                    <div class="card-body">
+
+                    <!-- Botão para gerar voucher -->
+                    <button id="generateBtn">Gerar Voucher</button>
+                    <p id="generatedVoucher"></p>
+
+                    <hr>
+                    
+                    <form id="voucherForm" method="post" action="{% url 'verify_voucher' %}" class="needs-validation" novalidate>                        {% csrf_token %}
+                        <!-- Formulário para verificar voucher -->
+                        <label for="voucherInput">Digite o Voucher:</label><br>
+                        <input type="text" id="voucherInput" name="voucherInput"><br>
+                        <button id="verifyBtn">Verificar Voucher</button>
+                        <p id="verificationStatus"></p>
+                    </form>
+
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    
+                    <script>
+                        $(document).ready(function() {
+                            // Evento para gerar voucher
+                            $("#generateBtn").click(function() {
+                                $.post("/voucher/generate/", function(data) {
+                                    $("#generatedVoucher").text("Voucher gerado: " + data.voucher_code);
+                                });
+                            });
+
+                            // Evento para verificar voucher
+                            $("#verifyBtn").click(function() {
+                                var userInput = $("#voucherInput").val();
+                                var voucherCode = $("#generatedVoucher").text().split(": ")[1];
+
+                                $.post("/voucher/verify/", { user_input: userInput, voucher_code: voucherCode }, function(data) {
+                                    $("#verificationStatus").text("Status da Verificação: " + data.status);
+                                });
+                            });
+                        });
+                    </script>
+
+                    <!-- Fim -->
+                
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

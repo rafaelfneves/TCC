@@ -7,25 +7,31 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card">
+
                         <div class="card-header">
-                            Login
+                            <h1>Login</h1>
                         </div>
+
                         <div class="card-body">
 
                             <!-- Formulário de Login -->
                             <form>
                                 <div class="form-group">
-                                    <label for="loginEmail">CPF:</label>
-                                    <input type="email" class="form-control" id="loginEmail" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="loginPassword">Senha:</label>
-                                    <input type="password" class="form-control" id="loginPassword" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Entrar</button>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="{{ user_form.email.id_for_label }}">Email:</label><br>
+                                {{ user_form.email }}
+                            </div>
+
+                            <!-- Senha -->
+                            <div class="form-group">
+                                <label for="{{ user_form.password.id_for_label }}">Senha:</label><br>
+                                {{ user_form.password }}
+                            </div>
+
                             </form>
                             <!-- Fim do Formulário de Login -->
-
 
                         </div>
                     </div>

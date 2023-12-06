@@ -1,4 +1,7 @@
 from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import UserModel
 from .forms import UserForm
 from modules.address.forms import AddressForm
@@ -10,6 +13,28 @@ def index(request):
     context["dataset"] = UserModel.objects.all()
 
     return render(request, "index.html", context)
+
+
+def login(request):
+    form = UserForm()
+
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, email=email, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect(
+                    reverse("dashboard")
+                )  # Substitua 'dashboard' pelo nome da sua página principal após o login
+            else:
+                # Lógica para lidar com falhas na autenticação
+                pass
+
+    return render(request, "login.html", {"form": form})
 
 
 # User & Adress Forms

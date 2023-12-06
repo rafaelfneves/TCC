@@ -15,6 +15,7 @@ class UserForm(forms.ModelForm):
             "birth_date",
             "phone",
             "email",
+            "password",
             "fk_address",
         ]
 

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "ecomundo",
     "modules.address",
     "modules.user",
+    "modules.voucher",
     "bootstrap5",
 ]
 
