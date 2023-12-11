@@ -39,10 +39,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "ecomundo",
+    "bootstrap5",
     "modules.address",
     "modules.user",
     "modules.voucher",
-    "bootstrap5",
+    "modules.category",
+    "modules.brand",
+    "modules.vehicle",
+    "modules.inventory",
+    "modules.material",
+    "modules.company",
+    "modules.achievement",
 ]
 
 MIDDLEWARE = [
