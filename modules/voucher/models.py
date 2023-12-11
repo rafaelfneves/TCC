@@ -2,8 +2,6 @@ import random
 import string
 from django.db import models
 
-from django.db import models
-
 
 class Voucher(models.Model):
     cod_voucher = models.CharField(max_length=8, primary_key=True)

@@ -22,3 +22,8 @@ class UserForm(forms.ModelForm):
         widgets = {
             "birth_date": SelectDateWidget(years=range(1900, 2100)),
         }
+
+
+class UserLoginForm(forms.Form):
+    email = forms.EmailField(label="Email")
+    password = forms.CharField(widget=forms.PasswordInput(), label="Senha")
